@@ -1,2 +1,6 @@
-requests
+fastapi
+folium
+pycountry
 python-dotenv
+requests
+uvicorn
