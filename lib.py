@@ -78,3 +78,20 @@ def get_available_markets() -> dict:
         headers={"Authorization": f"Bearer {AUTHORIZE_TOKEN}"},
     )
     return markets_response.json()
+
+def get_country_lat_lon(country_code: str = "ua") -> tuple[float, float]:
+    """Get the country latitude and longitiude from openstreetmap api"""
+    location_response = requests.get(
+        f"https://nominatim.openstreetmap.org/search\
+?q={country_code}&featuretype=country&\
+format=json&polygon=1&addressdetails=1"
+    )
+    result = location_response.json()
+    if not result:
+        location_response = requests.get(
+            f"https://nominatim.openstreetmap.org/search\
+?q={country_code}&\
+format=json&addressdetails=1"
+        )
+        result = location_response.json()
+    return result[0]["lat"], result[0]["lon"]
