@@ -11,6 +11,24 @@ with open("countries.json", "r", encoding="utf-8") as file:
 
 app = FastAPI(title="Spotify maps")
 
+@app.get("/", response_class=HTMLResponse)
+async def main():
+    return """
+<html>
+<body style="background-color:#1f2a31;width:100vw;height:100vh">
+    <div style="display:flex;align-items:center">
+        <form action="/artist_map?" method="GET">
+            <label for="artist_name">Artist Name</label> <br/>
+            <input type="text" name="artist_name" value="Ado"/> <br/>
+            <label for="location">Country</label><br/>
+            <input type="text" name="country" value="US"/><br/>
+            <input type="submit" value="Submit Request">
+        </form>
+    </div>
+</body>
+</html> 
+"""
+
 @app.get("/artists/by_name/{artist_name}")
 async def artist_by_name(artist_name: str) -> dict:
     """
@@ -18,9 +36,9 @@ async def artist_by_name(artist_name: str) -> dict:
     """
     return get_artist_by_name(artist_name)
 
-@app.get("/artists/by_name/{artist_name}/top_tracks", response_class=HTMLResponse)
+@app.get("/artist_map", response_class=HTMLResponse)
 async def top_tracks_by_name(
-    artist_name: str, 
+    artist_name: str = "Ado",
     country: str = "UA",
     use_openstreet: bool = False
 ):
