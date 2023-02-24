@@ -123,7 +123,7 @@ async def get_markets(
 async def country_loc(
     country_code: str,
     use_openstreet: bool = False
-) -> tuple | None:
+) -> tuple:
     """Get country's latitude and longitude"""
     if not use_openstreet:
         try:

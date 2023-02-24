@@ -1,0 +1,11 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: fastapi_test
+    src: ./task_3
+    engine: python3.9
+    primary: true
+    public_routes:
+        - "*"
+        - "/artists/*"
+        - "/artists/*/map"
